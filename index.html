@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZM STEEL SpA | Servicios Integrales en Acero</title>
+
+<!-- ============================================================
+     ZM STEEL SpA — Landing Page
+     Reemplaza los placeholders marcados con [REEMPLAZAR] por
+     contenido real: imágenes, logo, textos y datos de contacto.
+     ============================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================
+   1. TOKENS — Paleta, tipografía y variables base
+   ========================================================= */
+:root{
+  /* Color */
+  --carbon-950:#0c0d0f;      /* fondo principal, carbón profundo */
+  --carbon-900:#15171a;      /* fondo secundario, paneles */
+  --carbon-800:#1e2124;      /* bordes / paneles elevados */
+  --steel-blue:#1c3a5e;      /* azul industrial profundo */
+  --steel-blue-light:#3a6ea5;/* azul industrial, acentos activos */
+  --chrome-100:#eef1f3;      /* plata clara, texto principal */
+  --chrome-300:#c3c9d1;      /* plata media, texto secundario */
+  --chrome-500:#8b929c;      /* plata apagada, texto terciario */
+  --ember:#c9622a;           /* chispa de soldadura, uso mínimo */
+
+  /* Tipografía */
+  --font-display:'Oswald', sans-serif;
+  --font-body:'Work Sans', sans-serif;
+  --font-mono:'JetBrains Mono', monospace;
+
+  /* Layout */
+  --max-w:1240px;
+  --header-h:104px;
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--carbon-950);
+  color:var(--chrome-100);
+  font-family:var(--font-body);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+ul{list-style:none;margin:0;padding:0;}
+h1,h2,h3{font-family:var(--font-display);margin:0;text-transform:uppercase;letter-spacing:0.02em;}
+p{margin:0;}
+.wrap{max-width:var(--max-w);margin:0 auto;padding:0 32px;}
+:focus-visible{outline:2px solid var(--steel-blue-light);outline-offset:3px;}
+
+/* Textura diamond-plate sutil (placa antideslizante), firma visual reutilizada
+   en header y footer para anclar la identidad "industrial" */
+.plate-texture{
+  background-image:
+    repeating-linear-gradient(45deg, rgba(195,201,209,0.035) 0px, rgba(195,201,209,0.035) 1px, transparent 1px, transparent 14px),
+    repeating-linear-gradient(-45deg, rgba(195,201,209,0.035) 0px, rgba(195,201,209,0.035) 1px, transparent 1px, transparent 14px);
+}
+
+/* Texto con acabado "cromado" para titulares clave */
+.chrome-text{
+  background:linear-gradient(180deg, #ffffff 0%, #d6dbe0 35%, #9aa2ab 55%, #eef1f3 75%, #b7bec6 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+/* Remache — elemento de firma usado en esquinas de tarjetas y marcos */
+.rivet{
+  position:absolute;
+  width:8px;height:8px;
+  border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, var(--chrome-100), var(--chrome-500) 60%, #4a4f56 100%);
+  box-shadow:0 1px 2px rgba(0,0,0,0.6);
+}
+
+/* Divisor tipo perfil-I (viga de acero) entre secciones */
+.beam-divider{
+  height:14px;
+  width:100%;
+  background:
+    linear-gradient(var(--carbon-800), var(--carbon-800)) center/100% 3px no-repeat,
+    linear-gradient(var(--carbon-800), var(--carbon-800)) top/100% 3px no-repeat,
+    linear-gradient(var(--carbon-800), var(--carbon-800)) bottom/100% 3px no-repeat;
+  opacity:0.9;
+}
+
+.eyebrow{
+  font-family:var(--font-mono);
+  font-size:12px;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--steel-blue-light);
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:16px 34px;
+  font-family:var(--font-display);
+  font-size:15px;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  border:1px solid var(--chrome-500);
+  background:linear-gradient(180deg, #2a2e33, #1a1c1f);
+  color:var(--chrome-100);
+  cursor:pointer;
+  transition:border-color .25s ease, transform .25s ease, background .25s ease;
+}
+.btn:hover{border-color:var(--steel-blue-light);transform:translateY(-2px);}
+.btn-primary{
+  background:linear-gradient(180deg, var(--steel-blue-light), var(--steel-blue));
+  border-color:var(--steel-blue-light);
+  color:#fff;
+}
+.btn-primary:hover{box-shadow:0 8px 24px rgba(58,110,165,0.35);}
+
+/* =========================================================
+   2. HEADER
+   ========================================================= */
+.site-header{
+  position:fixed;
+  top:0;left:0;right:0;
+  height:var(--header-h);
+  z-index:1000;
+  background:rgba(12,13,15,0.92);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--carbon-800);
+}
+.site-header .wrap{
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.brand{display:flex;align-items:center;gap:14px;}
+.brand img{height:76px;width:auto;} /* Logo real de ZM STEEL SpA (icono + nombre + tagline en un solo archivo) */
+.nav-links{display:flex;gap:38px;}
+.nav-links a{
+  font-family:var(--font-display);
+  font-size:14px;
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+  color:var(--chrome-300);
+  position:relative;
+  padding:6px 0;
+  transition:color .2s ease;
+}
+.nav-links a::after{
+  content:'';
+  position:absolute;
+  left:0;bottom:0;
+  width:0;height:2px;
+  background:var(--steel-blue-light);
+  transition:width .25s ease;
+}
+.nav-links a:hover{color:var(--chrome-100);}
+.nav-links a:hover::after{width:100%;}
+.nav-toggle{display:none;background:none;border:1px solid var(--chrome-500);color:var(--chrome-100);width:44px;height:44px;font-size:20px;cursor:pointer;}
+
+/* =========================================================
+   3. HERO
+   ========================================================= */
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  padding-top:var(--header-h);
+  background:
+    linear-gradient(180deg, rgba(12,13,15,0.55) 0%, rgba(12,13,15,0.75) 55%, var(--carbon-950) 100%),
+    linear-gradient(100deg, rgba(28,58,94,0.55), rgba(12,13,15,0.2)),
+    url('img/hero-estructura.jpg') center/cover no-repeat;
+    /* Foto real de obra ZM STEEL SpA: estructura de acero montada. */
+}
+.hero-content{max-width:760px;}
+.hero .eyebrow{margin-bottom:18px;}
+.hero h1{
+  font-size:clamp(38px, 6vw, 76px);
+  line-height:1.02;
+  margin-bottom:22px;
+}
+.hero p.lead{
+  font-size:18px;
+  color:var(--chrome-300);
+  max-width:520px;
+  margin-bottom:38px;
+}
+.hero-ctas{display:flex;gap:18px;flex-wrap:wrap;}
+.hero-stats{
+  margin-top:64px;
+  display:flex;
+  gap:48px;
+  flex-wrap:wrap;
+}
+.hero-stats div{border-left:2px solid var(--steel-blue-light);padding-left:16px;}
+.hero-stats strong{display:block;font-family:var(--font-display);font-size:30px;color:var(--chrome-100);}
+.hero-stats span{font-family:var(--font-mono);font-size:11px;letter-spacing:0.1em;color:var(--chrome-500);text-transform:uppercase;}
+
+/* =========================================================
+   4. SECCIÓN GENERAL
+   ========================================================= */
+section{padding:120px 0;}
+.section-head{max-width:640px;margin-bottom:64px;}
+.section-head .eyebrow{margin-bottom:14px;}
+.section-head h2{font-size:clamp(30px,4vw,44px);margin-bottom:18px;}
+.section-head p{color:var(--chrome-300);font-size:16px;}
+
+/* =========================================================
+   5. NOSOTROS
+   ========================================================= */
+.about{background:var(--carbon-900);}
+.about .wrap{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:72px;
+  align-items:center;
+}
+.about-frame{position:relative;border:1px solid var(--carbon-800);padding:10px;}
+.about-frame img{
+  width:100%;height:420px;object-fit:cover;
+  filter:grayscale(15%) contrast(1.05);
+} /* [REEMPLAZAR] imagen: taller limpio o equipo de trabajo en obra */
+.about-frame .rivet:nth-child(2){top:6px;left:6px;}
+.about-frame .rivet:nth-child(3){top:6px;right:6px;}
+.about-frame .rivet:nth-child(4){bottom:6px;left:6px;}
+.about-frame .rivet:nth-child(5){bottom:6px;right:6px;}
+.about-copy h2{font-size:clamp(28px,3.4vw,38px);margin-bottom:24px;}
+.about-copy p{color:var(--chrome-300);margin-bottom:18px;font-size:16px;}
+.about-list{margin-top:28px;display:flex;flex-direction:column;gap:14px;}
+.about-list li{display:flex;gap:14px;align-items:flex-start;font-size:15px;color:var(--chrome-100);}
+.about-list li::before{
+  content:'';
+  flex:0 0 auto;
+  width:10px;height:10px;
+  margin-top:6px;
+  background:var(--steel-blue-light);
+  transform:rotate(45deg);
+}
+
+/* =========================================================
+   6. SERVICIOS
+   ========================================================= */
+.services{background:var(--carbon-950);}
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:1px;
+  background:var(--carbon-800);
+  border:1px solid var(--carbon-800);
+}
+.service-card{
+  position:relative;
+  background:var(--carbon-900);
+  padding:42px 30px;
+  transition:background .25s ease;
+}
+.service-card:hover{background:#191c20;}
+.service-card::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg, var(--steel-blue), var(--steel-blue-light));
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform .3s ease;
+}
+.service-card:hover::before{transform:scaleX(1);}
+.service-icon{
+  width:52px;height:52px;
+  margin-bottom:26px;
+  color:var(--steel-blue-light);
+}
+.service-card h3{font-size:19px;margin-bottom:12px;letter-spacing:0.03em;}
+.service-card p{font-size:14.5px;color:var(--chrome-500);}
+.service-num{
+  position:absolute;
+  top:20px;right:24px;
+  font-family:var(--font-mono);
+  font-size:11px;
+  color:var(--carbon-800);
+}
+
+/* =========================================================
+   7. PORTAFOLIO
+   ========================================================= */
+.portfolio{background:var(--carbon-900);}
+.portfolio-grid{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:20px;
+}
+.portfolio-item{
+  position:relative;
+  aspect-ratio:3/2;
+  min-height:200px;
+  background:var(--carbon-950);
+  border:1px solid var(--carbon-800);
+  overflow:hidden;
+}
+.portfolio-item img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:grayscale(25%) contrast(1.05) brightness(0.85);
+  transition:transform .5s ease, filter .4s ease;
+}
+.portfolio-item::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(0deg, rgba(12,13,15,0.85) 0%, rgba(12,13,15,0.05) 45%);
+  pointer-events:none;
+}
+.portfolio-tag{
+  position:absolute;
+  left:16px;bottom:14px;
+  z-index:2;
+  font-family:var(--font-mono);
+  font-size:11px;
+  letter-spacing:0.1em;
+  color:var(--chrome-100);
+  text-transform:uppercase;
+}
+.portfolio-item:hover{border-color:var(--steel-blue-light);}
+.portfolio-item:hover img{transform:scale(1.06);filter:grayscale(0%) contrast(1.05) brightness(0.95);}
+
+/* =========================================================
+   8. CONTACTO
+   ========================================================= */
+.contact{background:var(--carbon-950);}
+.contact .wrap{
+  display:grid;
+  grid-template-columns:1.2fr 0.8fr;
+  gap:0;
+  border:1px solid var(--carbon-800);
+}
+.contact-form{padding:56px;background:var(--carbon-900);}
+.contact-form h2{font-size:28px;margin-bottom:8px;}
+.contact-form > p{color:var(--chrome-500);margin-bottom:36px;font-size:14.5px;}
+.field{margin-bottom:22px;display:flex;flex-direction:column;gap:8px;}
+.field label{
+  font-family:var(--font-mono);
+  font-size:11px;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--chrome-500);
+}
+.field input,.field textarea{
+  background:var(--carbon-950);
+  border:1px solid var(--carbon-800);
+  color:var(--chrome-100);
+  padding:14px 16px;
+  font-family:var(--font-body);
+  font-size:15px;
+  resize:vertical;
+}
+.field input:focus,.field textarea:focus{border-color:var(--steel-blue-light);outline:none;}
+.contact-info{
+  padding:56px;
+  background:linear-gradient(160deg, var(--steel-blue), #142a44);
+  color:#fff;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+.contact-info h3{font-size:20px;margin-bottom:30px;}
+.contact-info ul{display:flex;flex-direction:column;gap:26px;}
+.contact-info li{display:flex;gap:16px;align-items:flex-start;}
+.contact-info .ico{
+  flex:0 0 auto;width:22px;height:22px;margin-top:2px;color:#cfe0f0;
+}
+.contact-info .label{
+  font-family:var(--font-mono);
+  font-size:10px;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:#a9c4dd;
+  display:block;
+  margin-bottom:4px;
+}
+.contact-info .value{font-size:15px;color:#fff;}
+
+/* =========================================================
+   9. FOOTER
+   ========================================================= */
+.site-footer{
+  background:var(--carbon-900);
+  border-top:1px solid var(--carbon-800);
+  padding:56px 0 28px;
+}
+.footer-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  flex-wrap:wrap;
+  gap:32px;
+  padding-bottom:36px;
+  border-bottom:1px solid var(--carbon-800);
+}
+.footer-brand{display:flex;align-items:center;gap:12px;}
+.footer-brand img{height:52px;} /* Logo real de ZM STEEL SpA */
+.footer-links{display:flex;gap:30px;flex-wrap:wrap;}
+.footer-links a{
+  font-family:var(--font-mono);
+  font-size:12px;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:var(--chrome-500);
+}
+.footer-links a:hover{color:var(--chrome-100);}
+.footer-bottom{
+  padding-top:24px;
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:10px;
+  font-family:var(--font-mono);
+  font-size:11px;
+  color:var(--carbon-800);
+}
+.footer-bottom span{color:var(--chrome-500);}
+
+/* =========================================================
+   10. RESPONSIVE
+   ========================================================= */
+@media (max-width:960px){
+  .about .wrap{grid-template-columns:1fr;gap:44px;}
+  .services-grid{grid-template-columns:repeat(2,1fr);}
+  .portfolio-grid{grid-template-columns:repeat(2,1fr);}
+  .contact .wrap{grid-template-columns:1fr;}
+}
+@media (max-width:720px){
+  :root{--header-h:76px;}
+  .nav-links{
+    position:fixed;
+    top:var(--header-h);left:0;right:0;
+    background:var(--carbon-950);
+    flex-direction:column;
+    gap:0;
+    border-top:1px solid var(--carbon-800);
+    transform:translateY(-140%);
+    transition:transform .3s ease;
+  }
+  .nav-links.open{transform:translateY(0);}
+  .nav-links a{padding:18px 32px;border-bottom:1px solid var(--carbon-800);}
+  .nav-toggle{display:block;}
+  .brand img{height:54px;}
+  section{padding:80px 0;}
+  .services-grid{grid-template-columns:1fr;}
+  .portfolio-grid{grid-template-columns:1fr;}
+  .contact-form,.contact-info{padding:34px 26px;}
+  .hero-stats{gap:28px;}
+}
+</style>
+</head>
+<body>
+
+<!-- =========================================================
+     HEADER
+     ========================================================= -->
+<header class="site-header plate-texture">
+  <div class="wrap">
+    <a href="#inicio" class="brand">
+      <img src="ZMlogooficial.png" alt="ZM STEEL SpA Logo">
+    </a>
+
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#portafolio">Portafolio</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+  </div>
+</header>
+
+<!-- =========================================================
+     HERO
+     ========================================================= -->
+<section class="hero" id="inicio">
+  <div class="wrap hero-content">
+    <p class="eyebrow">Ingeniería · Fabricación · Montaje</p>
+    <h1>SOLUCIONES<br>INTEGRALES<br><span class="chrome-text"></span></h1>
+    <p class="lead">Calidad y precisión en cada proyecto.</p>
+    <div class="hero-ctas">
+      <a href="#servicios" class="btn btn-primary">Ver Servicios</a>
+      <a href="#contacto" class="btn">Cotizar Proyecto</a>
+    </div>
+    <div class="hero-stats">
+      <div><strong>+15</strong><span>Años de experiencia</span></div>
+      <div><strong>+120</strong><span>Proyectos ejecutados</span></div>
+      <div><strong>100%</strong><span>Normativa vigente</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="beam-divider"></div>
+
+<!-- =========================================================
+     NOSOTROS
+     ========================================================= -->
+<section class="about" id="nosotros">
+  <div class="wrap">
+    <div class="about-frame">
+      <!-- Foto real de obra ZM STEEL SpA: equipo trabajando en terreno. -->
+      <img src="img/nosotros-equipo.jpg" alt="Equipo de trabajo ZM STEEL SpA en obra">
+      <span class="rivet"></span><span class="rivet"></span><span class="rivet"></span><span class="rivet"></span>
+    </div>
+    <div class="about-copy">
+      <p class="eyebrow">Quiénes somos</p>
+      <h2>Estructura, respaldo<br>y experiencia real</h2>
+      <p>En ZM STEEL SpA convertimos proyectos complejos en estructuras seguras y funcionales. Nuestro equipo trabaja con estándares técnicos exigentes, desde el cálculo estructural hasta la entrega final en obra.</p>
+      <p>Cada trabajo se ejecuta con trazabilidad de materiales, personal certificado y control de calidad en todas las etapas del proceso.</p>
+      <ul class="about-list">
+        <li>Equipo técnico y soldadores certificados</li>
+        <li>Cumplimiento de normativa chilena e internacional</li>
+        <li>Seguimiento de obra en tiempo real</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     SERVICIOS
+     ========================================================= -->
+<section class="services" id="servicios">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Lo que hacemos</p>
+      <h2>Servicios Integrales</h2>
+      <p>Cubrimos cada etapa del proyecto industrial, con un solo equipo responsable de principio a fin.</p>
+    </div>
+
+    <div class="services-grid">
+
+      <div class="service-card">
+        <span class="service-num">01</span>
+        <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M8 40V16l16-8 16 8v24" stroke-linejoin="round"/>
+          <path d="M8 24h32M20 40V24M28 40V24" />
+        </svg>
+        <h3>Estructuras Metálicas</h3>
+        <p>Diseño, fabricación y armado de estructuras para naves industriales, galpones y edificios.</p>
+      </div>
+
+      <div class="service-card">
+        <span class="service-num">02</span>
+        <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M10 34l10-10M30 14l8 8-16 16-8-8z" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M34 10l4 4M6 38l4 4" stroke-linecap="round"/>
+        </svg>
+        <h3>Soldadura Especializada</h3>
+        <p>Procesos MIG, TIG y arco manual ejecutados por soldadores certificados bajo código ASME/AWS.</p>
+      </div>
+
+      <div class="service-card">
+        <span class="service-num">03</span>
+        <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M6 40h36M12 40V20l10-6 10 6v20" stroke-linejoin="round"/>
+          <path d="M22 40V28h4v12" />
+        </svg>
+        <h3>Montaje Industrial</h3>
+        <p>Instalación de equipos, líneas de proceso y estructuras en planta, con planificación de izaje.</p>
+      </div>
+
+      <div class="service-card">
+        <span class="service-num">04</span>
+        <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M6 42h36M10 42V18h10v24M28 42V10h10v32" stroke-linejoin="round"/>
+        </svg>
+        <h3>Obras Civiles</h3>
+        <p>Fundaciones, radieres y obra gruesa complementaria a los proyectos de montaje estructural.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     PORTAFOLIO
+     ========================================================= -->
+<section class="portfolio" id="portafolio">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Trabajos realizados</p>
+      <h2>Portafolio</h2>
+      <p>Una muestra de proyectos ejecutados por nuestro equipo.</p>
+    </div>
+
+    <div class="portfolio-grid">
+      <!-- Fotos reales de obras ejecutadas por ZM STEEL SpA. -->
+      <div class="portfolio-item">
+        <img src="img/portafolio-01-estructura-terminada.jpg" alt="Nave industrial con estructura metálica terminada">
+        <span class="portfolio-tag">Estructuras Metálicas</span>
+      </div>
+      <div class="portfolio-item">
+        <img src="img/portafolio-02-pergola.jpg" alt="Pergola de madera con bancas, obra terminada">
+        <span class="portfolio-tag">Obras Civiles</span>
+      </div>
+      <div class="portfolio-item">
+        <img src="img/portafolio-03-montaje-columna.jpg" alt="Montaje de columna metálica con enfierradura">
+        <span class="portfolio-tag">Montaje Industrial</span>
+      </div>
+      <div class="portfolio-item">
+        <img src="img/portafolio-04-detalle-anclaje.jpg" alt="Detalle de anclaje y sellado de columna en obra">
+        <span class="portfolio-tag">Montaje Industrial</span>
+      </div>
+      <div class="portfolio-item">
+        <img src="img/portafolio-05-montaje-techumbre.jpg" alt="Montaje de techumbre metálica en altura">
+        <span class="portfolio-tag">Estructuras Metálicas</span>
+      </div>
+      <div class="portfolio-item">
+        <img src="img/portafolio-06-terminacion-piso.jpg" alt="Terminación de piso cerámico en obra">
+        <span class="portfolio-tag">Obras Civiles</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     CONTACTO
+     ========================================================= -->
+<section class="contact" id="contacto">
+  <div class="wrap">
+    <div class="contact-form">
+      <h2>Hablemos de tu proyecto</h2>
+      <p>Cuéntanos qué necesitas y te contactaremos a la brevedad.</p>
+
+      <form>
+        <div class="field">
+          <label for="nombre">Nombre</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" required>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="tucorreo@ejemplo.com" required>
+        </div>
+        <div class="field">
+          <label for="mensaje">Mensaje</label>
+          <textarea id="mensaje" name="mensaje" rows="5" placeholder="Describe brevemente tu proyecto" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar mensaje</button>
+      </form>
+    </div>
+
+    <div class="contact-info">
+      <div>
+        <h3>Datos de contacto</h3>
+        <ul>
+          <li>
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 5c0 8 7 15 15 15l3-4-6-3-2 2c-2-1-4-3-5-5l2-2-3-6z"/></svg>
+            <span>
+              <span class="label">Teléfono</span>
+              <span class="value">+56 9 66157935</span>
+            </span>
+          </li>
+          <li>
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18v12H3z"/><path d="M3 6l9 7 9-7"/></svg>
+            <span>
+              <span class="label">Email</span>
+              <span class="value">zmspa.contacto@gmail.com</span>
+            </span>
+          </li>
+          <li>
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.4"/></svg>
+            <span>
+              <span class="label">Dirección</span>
+              <span class="value">Oficina Bonasort 258 , Antofagasta, Chile</span>
+            </span>
+          </li>
+        </ul>
+      </div>
+      <p style="font-size:13px;color:#cfe0f0;margin-top:40px;">Atención de lunes a viernes, 09:00 – 18:00 hrs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+<footer class="site-footer plate-texture">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="ZMlogooficial.png" alt="ZM STEEL SpA Logo">
+      </div>
+      <ul class="footer-links">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#portafolio">Portafolio</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="footer-bottom">
+      <p>ZM STEEL SpA — Servicios Integrales · Chile</p>
+      <span>© 2026 ZM STEEL SpA. Todos los derechos reservados.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Menú móvil
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen);
+  });
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+</script>
+
+</body>
+</html>
